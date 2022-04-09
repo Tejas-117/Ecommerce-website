@@ -1,0 +1,10 @@
+.page_not_found{
+   margin: 80px auto 0;
+   text-align: center;
+}
+
+
+.back_link{
+   margin: 10px 0;
+   text-decoration: underline dotted grey 3px;
+}

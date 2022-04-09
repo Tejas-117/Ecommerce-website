@@ -1,0 +1,38 @@
+.review {
+  width: 100%;
+  padding: 1rem;
+  border: 1px solid rgba(0, 0, 0, 0.225);
+  border-radius: 5px;
+  margin: 10px 0;
+}
+
+.review p {
+  margin: 8px 0px;
+}
+
+.review .user {
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+
+.time{
+  font-weight: 400;
+  font-size: 0.8rem;
+  color: rgb(100, 71, 34);
+  margin: 0 5px;
+}
+
+.delete_review{
+  background: rgb(1, 48, 255);
+  border: none;
+  border-radius: 5px;
+  margin: 10px 0;
+  padding: 10px 15px;
+  transition: box-shadow 0.25s;
+  color: white;
+  cursor: pointer;
+}
+
+.delete_review:hover {
+   box-shadow: inset 6.5em 0 0 0 rgb(51, 99, 255);
+}
