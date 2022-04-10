@@ -95,13 +95,14 @@ function AddProduct() {
           required
         />
 
-        <label htmlFor="category">Choose a category:</label>
+        <label htmlFor="category">Category:</label>
         <select
           id="category"
           value={category}
           onChange={(e) => setCategory(e.target.value)}
           required
         >
+          <option value="">Choose a category</option>
           <option value="consoles">Consoles</option>
           <option value="laptops">Laptops</option>
           <option value="storage">Storage</option>
