@@ -75,7 +75,7 @@ function PaymentForm() {
       elements,
       redirect: "if_required",
       confirmParams: {
-        return_url: `http://localhost:3000/orders/`,
+        return_url: `${process.env.APP_URL}/orders`,
         payment_method_data: {
           billing_details: shipping, //billing address is same as shipping address
         },

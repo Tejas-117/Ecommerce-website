@@ -45,21 +45,23 @@ function Header() {
             About
           </Link>
 
-          <Link to="Blog" className="header_link" onClick={toggleNavbar}>
+          <Link to="#" className="header_link" onClick={toggleNavbar}>
             Blog
           </Link>
 
-          {state.user?.isAdmin ? (
+          {state.user && (
+            <Link to="/orders" className="header_link" onClick={toggleNavbar}>
+              My Orders
+            </Link>
+          )}
+
+          {state.user?.isAdmin && (
             <Link
               to="/admin/dashboard"
               className="header_link"
               onClick={toggleNavbar}
             >
               Dashboard
-            </Link>
-          ) : (
-            <Link to="/orders" className="header_link" onClick={toggleNavbar}>
-              My Orders
             </Link>
           )}
         </div>

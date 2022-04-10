@@ -1,4 +1,4 @@
--- users table
+-- users 
 CREATE TABLE users(
    id BIGSERIAL PRIMARY KEY,
    name VARCHAR(30) NOT NULL,
@@ -6,7 +6,7 @@ CREATE TABLE users(
    password TEXT NOT NULL
 );
 
--- users session
+-- users sessions
 CREATE TABLE user_sessions (
    sid VARCHAR NOT NULL COLLATE "default",
 	sess JSON NOT NULL,
@@ -19,7 +19,7 @@ ALTER TABLE user_sessions ADD CONSTRAINT "session_pkey" PRIMARY KEY ("sid") NOT 
 CREATE INDEX "IDX_session_expire" ON "user_sessions" ("expire");
 
 
--- products table
+-- products 
 CREATE TABLE products(
    id BIGSERIAL PRIMARY KEY,
    name VARCHAR(70) NOT NULL,
@@ -30,7 +30,7 @@ CREATE TABLE products(
    currency VARCHAR(3) NOT NULL
 );
 
--- images table
+-- images 
 CREATE TABLE images(
    id BIGSERIAL PRIMARY KEY,
    image_url TEXT NOT NULL,
@@ -38,7 +38,7 @@ CREATE TABLE images(
    product_id BIGINT REFERENCES products(id) ON DELETE CASCADE
 );
 
--- reviews table
+-- reviews 
 CREATE TABLE reviews(
    id BIGSERIAL PRIMARY KEY,
    product_id BIGINT REFERENCES products(id) ON DELETE CASCADE,
