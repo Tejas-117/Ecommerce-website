@@ -38,7 +38,5 @@ Ecommerce Website for computer parts and other electronics
 
 ## Test Credentials 
 
-- Customer: email- test@gmail.com
-            password - test
-- Admin:  email - admin@gmail.com
-          password - admin
+- Customer: email- test@gmail.com, password - test
+- Admin:  email - admin@gmail.com, password - admin
