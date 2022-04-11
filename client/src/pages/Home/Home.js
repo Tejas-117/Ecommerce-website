@@ -14,22 +14,28 @@ function Home() {
   const [categoryFilter, setCategoryFilter] = useState("");
   const [priceFilter, setPriceFilter] = useState("");
   const [nameFilter, setNameFilter] = useState("");
-  const [page, setPage] = useState(sessionStorage.getItem("page") || 1);
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
 
   async function getData() {
+    setisLoading(true);
     const response = await fetch(
       `/api/v1/products/?page=${page - 1}&pagination=true`
     );
     const { data } = await response.json();
 
-    setProducts(data?.products || []);
+    // setProducts(data.products);
+    setProducts([...products, ...data.products]);
     setisLoading(false);
   }
 
   useEffect(() => {
-    setisLoading(true);
     getData();
   }, [page]);
+
+  function handleObeserve(){
+
+  }
 
   function changeCategory(e) {
     setCategoryFilter(e.target.innerText.toLowerCase());
@@ -51,8 +57,7 @@ function Home() {
 
     if (type === "prev" && page > 1) {
       sessionStorage.setItem("page", (page - 1).toString());
-    } 
-    else if (type === "next" && products.length === 25) {
+    } else if (type === "next") {
       sessionStorage.setItem("page", (page + 1).toString());
     }
 
@@ -131,13 +136,6 @@ function Home() {
       </div>
 
       <div className="products_container">
-        {isLoading && (
-          <div className="loading_message">
-            <Loader />
-            Fetching Products
-          </div>
-        )}
-
         {products
           .filter((p) => categoryFilter === "" || p.category === categoryFilter)
           .sort((a, b) => {
@@ -154,14 +152,18 @@ function Home() {
             }
             return 1;
           })
-          .map((product) => {
-            if (
-              nameFilter === "" ||
-              product.name.toLowerCase().includes(nameFilter.toLowerCase())
-            ) {
-              return <Product key={product.id} product={product} />;
+          .map((product, idx) => {
+            if (nameFilter === "" || product.name.toLowerCase().includes(nameFilter.toLowerCase())) {
+              return <Product key={idx} product={product} />;
             }
           })}
+
+        {isLoading && (
+          <div className="loading_message">
+            <Loader />
+            Fetching Products
+          </div>
+        )}
       </div>
 
       <div className="page_buttons">
