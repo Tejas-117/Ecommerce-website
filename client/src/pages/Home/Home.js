@@ -27,7 +27,6 @@ function Home() {
     const { data } = await response.json();
 
     if (data.products && data.products.length === 0) {
-      console.log("No more products");
       setHasMore(false);
     }
 

@@ -35,7 +35,6 @@ function ConfirmOrder() {
     })
 
     const { error, data } = await response.json();
-    console.log(error, data);
 
     if(!error){
       dispatch({ type: "update_order_info", payload: { order_info: { order_id: data.order_id, products: cart } } });
