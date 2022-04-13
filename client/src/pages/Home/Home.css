@@ -160,7 +160,7 @@
   justify-content: center;
   width: 100%;
   max-width: 1500px;
-  margin: 0 auto;
+  margin: 0 auto 3rem;
   padding: 4rem;
 }
 
@@ -172,35 +172,14 @@
   border-bottom: 2px solid gray;
 }
 
-.page_buttons {
-  display: flex;
-  align-items: center;
-  margin: 2rem auto;
-  color: rgb(0, 153, 255);
-}
-
-.page_buttons span {
-  margin: 0 10px;
-}
-
-.page_buttons button {
-  display: flex;
-  align-items: center;
-  padding: 0.4rem 1rem;
-  margin: 0 5px;
-  border-radius: 5px;
-  background: none;
-  color: inherit;
-  border: 2px solid rgb(0, 153, 255);
-  font: inherit;
-  font-size: 1rem;
-  transition: 0.25s;
-}
-
-.page_buttons button:hover {
-  color: white;
-  box-shadow: inset -3.5em 0 0 0 rgb(0, 153, 255),
-    inset 3.5em 0 0 0 rgb(0, 153, 255);
+.products_container .note{
+  position: absolute;
+  bottom: 0%;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  width: 400px;
+  text-align: center;
 }
 
 @media only screen and (max-width: 1000px) {

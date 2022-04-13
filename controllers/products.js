@@ -6,8 +6,8 @@ const { cloudinary } = require("../config/cloudinary-config");
 const { newHttpError } = require("../utils/error");
 
 const getAllProducts = async (req, res, next) => {
-  const { page = 1, pagination } = req.query;
-  
+  const { page = 1, pagination = false, phrase = "" } = req.query;
+
   try {
     let queryString = `
       SELECT products.*, image_url 
@@ -16,6 +16,7 @@ const getAllProducts = async (req, res, next) => {
       ON products.id = product_id 
       WHERE images.id IN 
           (SELECT MIN(id) FROM images WHERE product_id = products.id)
+        AND products.name LIKE '%${phrase}%'
     `
 
     if(pagination === 'true'){    

@@ -9,32 +9,47 @@ import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 
 function Home() {
-  const [products, setProducts] = useState([]);
+  const [allProducts, setAllProducts] = useState([]);
   const [isLoading, setisLoading] = useState(false);
   const [categoryFilter, setCategoryFilter] = useState("");
   const [priceFilter, setPriceFilter] = useState("");
   const [nameFilter, setNameFilter] = useState("");
+
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
+  const [allProductsTemp, setAllProductsTemp] = useState([]);
 
-  async function getData() {
+  async function getProducts() {
     setisLoading(true);
     const response = await fetch(
       `/api/v1/products/?page=${page - 1}&pagination=true`
     );
     const { data } = await response.json();
 
-    // setProducts(data.products);
-    setProducts([...products, ...data.products]);
+    if (data.products && data.products.length === 0) {
+      console.log("No more products");
+      setHasMore(false);
+    }
+
+    setAllProducts([...allProducts, ...data.products]);
     setisLoading(false);
   }
 
-  useEffect(() => {
-    getData();
-  }, [page]);
+  async function getSearchedProducts(e) {
+    if (!nameFilter) return;
 
-  function handleObeserve(){
+    setisLoading(true);
 
+    const response = await fetch(`/api/v1/products/?phrase=${nameFilter}`);
+    const { data, error } = await response.json();
+
+    setisLoading(false);
+
+    if (!error) {
+      // copy all products to a variable
+      setAllProductsTemp(allProducts);
+      setAllProducts(data.products);
+    }
   }
 
   function changeCategory(e) {
@@ -46,28 +61,33 @@ function Home() {
   }
 
   function removeFilters(e) {
+    setAllProducts(allProductsTemp);
+    setAllProductsTemp([]);
+
     setCategoryFilter("");
     setPriceFilter("");
     setNameFilter("");
   }
 
-  function changePage(type) {
-    const a = sessionStorage.getItem("page");
-    if (!a) sessionStorage.setItem("page", "1");
+  useEffect(async () => {
+    await getProducts();
 
-    if (type === "prev" && page > 1) {
-      sessionStorage.setItem("page", (page - 1).toString());
-    } else if (type === "next") {
-      sessionStorage.setItem("page", (page + 1).toString());
-    }
+    const lastProductObserver = new IntersectionObserver(
+      (entries) => {
+        if (!entries[0].isIntersecting || !hasMore) return;
 
-    if (products.length === 0) {
-      sessionStorage.setItem("page", "1");
-    }
+        setPage((prevPage) => {
+          return prevPage + 1;
+        });
 
-    const num = parseInt(sessionStorage.getItem("page"));
-    setPage(num);
-  }
+        lastProductObserver.unobserve(entries[0].target);
+      },
+      { threshold: 0.4 }
+    );
+
+    const allProductsEle = document.querySelectorAll(".product");
+    lastProductObserver.observe(allProductsEle[allProductsEle.length - 1]);
+  }, [page]);
 
   return (
     <Fragment>
@@ -86,8 +106,8 @@ function Home() {
 
       <div className="filters">
         <div className="product_search">
-          <form className="search_form">
-            <button className="search_button">
+          <div className="search_form">
+            <button className="search_button" onClick={getSearchedProducts}>
               <SearchIcon />
             </button>
             <input
@@ -99,7 +119,7 @@ function Home() {
               value={nameFilter}
               onChange={(e) => setNameFilter(e.target.value)}
             />
-          </form>
+          </div>
         </div>
 
         <div className="filter_buttons">
@@ -136,7 +156,7 @@ function Home() {
       </div>
 
       <div className="products_container">
-        {products
+        {allProducts
           .filter((p) => categoryFilter === "" || p.category === categoryFilter)
           .sort((a, b) => {
             if (priceFilter === "") return 0;
@@ -152,11 +172,15 @@ function Home() {
             }
             return 1;
           })
-          .map((product, idx) => {
-            if (nameFilter === "" || product.name.toLowerCase().includes(nameFilter.toLowerCase())) {
-              return <Product key={idx} product={product} />;
-            }
-          })}
+          .map((product, idx) => (
+            <Product key={idx} product={product} />
+          ))}
+
+        {!hasMore && (
+          <div className="note">
+            You have browsed all products.
+          </div>
+        )}
 
         {isLoading && (
           <div className="loading_message">
@@ -164,17 +188,6 @@ function Home() {
             Fetching Products
           </div>
         )}
-      </div>
-
-      <div className="page_buttons">
-        <button className="prev" onClick={(e) => changePage("prev")}>
-          <ArrowBackIosIcon /> Prev
-        </button>
-        <span>{page}</span>
-        <button className="next" onClick={(e) => changePage("next")}>
-          Next
-          <ArrowForwardIosIcon />
-        </button>
       </div>
     </Fragment>
   );
