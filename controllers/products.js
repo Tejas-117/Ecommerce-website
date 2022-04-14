@@ -20,7 +20,7 @@ const getAllProducts = async (req, res, next) => {
     `
 
     if(pagination === 'true'){    
-      queryString += `OFFSET ${page * 5} LIMIT 5`
+      queryString += `OFFSET ${page * 25} LIMIT 25`
     }
 
     const { rows } = await db.query(queryString);
