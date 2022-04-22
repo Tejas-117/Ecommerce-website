@@ -258,4 +258,8 @@
   .dropdown {
     width: 100%;
   }
+
+  .products_container .note{
+    width: 90vw;
+  }
 }
