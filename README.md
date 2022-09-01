@@ -6,6 +6,7 @@
 - [My process](#my-process)
   - [Built with](#built-with)
 - [Test Credentials](#test-credentials)
+- [Important Note](#important-note)
 
 ## Overview
 
@@ -40,3 +41,7 @@ Ecommerce Website for computer parts and other electronics
 
 - Customer: email- test@gmail.com, password - test
 - Admin:  email - admin@gmail.com, password - admin
+
+## Important Note
+
+The website uses sessions to authorise users, if the website is visited with 'http' protocol sessions don't work and all the functionalities depending on sessions don't either. Make sure to visit the website with 'https' protocol.
