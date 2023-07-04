@@ -51,9 +51,7 @@ app.use("/api/v1/payment", paymentRoute);
 
 // Serve static content
 const root = require('path').join(__dirname, 'client', 'build')
-if(process.env.NODE_ENV === "production"){
-  app.use(express.static(root));
-}
+app.use(express.static(root + '/static'));
 
 app.get("*", (req, res, next) => {
   res.sendFile("index.html", { root });
