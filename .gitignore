@@ -130,4 +130,5 @@ dist
 .pnp.*
 
 # Other local files and folders
-notes/
+media/
+build/
