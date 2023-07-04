@@ -26,7 +26,7 @@ Ecommerce Website for computer parts and other electronics
 
 ### Links
 
-- [Live Site URL](https://ecom-store41.herokuapp.com/)
+- [Live Site URL](https://ecommerce-website-liard.vercel.app/)
 
 ## My process
 
