@@ -50,12 +50,13 @@ app.use("/api/v1/orders", ordersRoute);
 app.use("/api/v1/payment", paymentRoute);
 
 // Serve static content
+const root = require('path').join(__dirname, 'client', 'build')
 if(process.env.NODE_ENV === "production"){
-  app.use(express.static(__dirname + "/client/build"));
+  app.use(express.static(root));
 }
 
 app.get("*", (req, res, next) => {
-  res.sendFile(__dirname + "/client/build/index.html");
+  res.sendFile(index.html, { root });
 });
 
 app.use((err, req, res, next) => {
@@ -68,4 +69,6 @@ app.use((err, req, res, next) => {
 });
 
 const port = process.env.PORT || 3030;
-app.listen(port, () => console.log(`Server running on ${port}`));
+app.listen(port, () => {
+  console.log(`Server running on ${port}`);
+})
