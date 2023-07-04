@@ -56,7 +56,7 @@ if(process.env.NODE_ENV === "production"){
 }
 
 app.get("*", (req, res, next) => {
-  res.sendFile(index.html, { root });
+  res.sendFile("index.html", { root });
 });
 
 app.use((err, req, res, next) => {
