@@ -50,11 +50,11 @@ app.use("/api/v1/orders", ordersRoute);
 app.use("/api/v1/payment", paymentRoute);
 
 // Serve static content
-const root = require('path').join(__dirname, 'client', 'build')
+const root = require('path').join(__dirname, 'public')
 app.use(express.static(root));
 
 app.get("*", (req, res, next) => {
-  res.sendFile("index.html", { root });
+  res.sendFile("public/index.html");
 });
 
 app.use((err, req, res, next) => {
