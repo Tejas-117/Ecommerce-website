@@ -26,7 +26,7 @@ Ecommerce Website for computer parts and other electronics
 
 ### Links
 
-- [Live Site URL](https://ecommerce-website-liard.vercel.app/)
+- [Live Site URL](https://ecommerce-website-khaki.vercel.app/)
 
 ## My process
 
