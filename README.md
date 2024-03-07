@@ -12,7 +12,7 @@
 
 ### Project
 
-Ecommerce Website for computer parts and other electronics
+Ecommerce website for computer parts and other electronics
 
 - Users (Customers) can 
   - view products.
