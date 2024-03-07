@@ -14,7 +14,7 @@
 
 Ecommerce website for computer parts and other electronics
 
-- Users (Customers) can 
+- Users (customers) can 
   - view products.
   - make orders and pay for them.
   - add and delete their reviews. 
